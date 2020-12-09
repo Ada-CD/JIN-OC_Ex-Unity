@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &135323343 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5833062383817497274, guid: e37a317da341a9a36a651aede34cf296,
+    type: 3}
+  m_PrefabInstance: {fileID: 880106004}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &207781661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -565,8 +571,6 @@ MonoBehaviour:
   serialPort: /dev/ttyACM0
   baudrate: 115200
   river: {fileID: 1771820749}
-  _riverRigidbody2D: {fileID: 0}
-  _riverSprite: {fileID: 0}
 --- !u!4 &1336036253
 Transform:
   m_ObjectHideFlags: 0
@@ -812,8 +816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  serialHandler: {fileID: 0}
-  ledArea: {fileID: 0}
+  serialHandler: {fileID: 1336036252}
+  ledArea: {fileID: 135323343}
 --- !u!1 &1887386311
 GameObject:
   m_ObjectHideFlags: 0

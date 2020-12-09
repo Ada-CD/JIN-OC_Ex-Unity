@@ -1,4 +1,5 @@
-﻿using System.IO.Ports;
+﻿using System;
+using System.IO.Ports;
 using UnityEngine;
 
 public class SerialHandler : MonoBehaviour
@@ -11,8 +12,8 @@ public class SerialHandler : MonoBehaviour
     [SerializeField] private int baudrate = 115200;
     
     [SerializeField] private Component river;
-    [SerializeField] private Rigidbody2D _riverRigidbody2D;
-    [SerializeField] private SpriteRenderer _riverSprite;
+    private Rigidbody2D _riverRigidbody2D;
+    private SpriteRenderer _riverSprite;
     
     // Start is called before the first frame update
     void Start()
@@ -33,9 +34,14 @@ public class SerialHandler : MonoBehaviour
         if (_serial.BytesToRead <= 0) return;
         
         var message = _serial.ReadLine();
-        // Arduino sends "\r\n" with println, '\n' is removed by ReadLine()
-        message = message.Trim('\r');
         
+        // Arduino sends "\r\n" with println, ReadLine() removes Environment.NewLine which will not be 
+        // enough on Linux/MacOS.
+        if (Environment.NewLine == "\n")
+        {
+            message = message.Trim('\r');
+        }
+
         switch (message)
         {
             case "dry":
