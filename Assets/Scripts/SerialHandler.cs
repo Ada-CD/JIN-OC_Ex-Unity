@@ -7,9 +7,9 @@ public class SerialHandler : MonoBehaviour
     
     private SerialPort _serial;
 
-    // Common default serial device on a Linux machine
-    [SerializeField] private string serialPort = "/dev/ttyACM0";
-    [SerializeField] private int baudrate = 115200;
+    // Common default serial device on a Windows machine
+    [SerializeField] private string serialPort = "COM1";
+    [SerializeField] private int baudrate = 9600;
     
     [SerializeField] private Component river;
     private Rigidbody2D _riverRigidbody2D;

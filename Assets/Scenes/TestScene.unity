@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 6e770bdde93a4edef9f54e8bd6c1862c,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -315,8 +318,28 @@ PrefabInstance:
     - target: {fileID: 5267565360780772879, guid: e37a317da341a9a36a651aede34cf296,
         type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5267565360780772879, guid: e37a317da341a9a36a651aede34cf296,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.109024554
+      objectReference: {fileID: 0}
+    - target: {fileID: 5267565360780772879, guid: e37a317da341a9a36a651aede34cf296,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.109024554
+      objectReference: {fileID: 0}
+    - target: {fileID: 5267565360780772879, guid: e37a317da341a9a36a651aede34cf296,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.6603774
+      objectReference: {fileID: 0}
+    - target: {fileID: 5267565360780772879, guid: e37a317da341a9a36a651aede34cf296,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 9154118506023484505, guid: e37a317da341a9a36a651aede34cf296,
         type: 3}
       propertyPath: m_RootOrder
@@ -416,6 +439,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -568,8 +592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67a200f8d5b73aab88cc2c43f5daf30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialPort: /dev/ttyACM0
-  baudrate: 115200
+  serialPort: COM1
+  baudrate: 9600
   river: {fileID: 1771820749}
 --- !u!4 &1336036253
 Transform:
@@ -617,6 +641,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -754,6 +779,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
