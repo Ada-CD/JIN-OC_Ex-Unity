@@ -5,5 +5,7 @@ It uses the `System.IO.Ports` serial objects provided by the .NET framework. Che
 
 The Arduino script is contained in the [Arduino_Controller](Arduino_Controller) folder. It cannot be moved out, otherwise the Arduino IDE will complain and force you to create the folder.
 
+It also features an example communicatio via TCP/IP between a WiFi enabled ESP8266 board and a Unity script. The Arduino file is in [Arduino_Wifi](Arduino_Wifi) and the Unity side is handled by `TCPHandler.cs`.  
+The Arduino echos back what it receives on the serial port while the Unity script uses `Debug.Log`.
 
-This was tested using the **2019 LTS** version of Unity (2019.4.16f1 from my Unity Hub).
+This was tested using the ***2020.3.18f1*** version of Unity.
