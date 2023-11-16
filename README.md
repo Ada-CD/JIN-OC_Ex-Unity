@@ -8,4 +8,4 @@ The Arduino script is contained in the [Arduino_Controller](Arduino_Controller) 
 It also features an example communication via TCP/IP between a WiFi enabled ESP8266 board and a Unity script. The Arduino file is in [Arduino_Wifi](Arduino_Wifi) and the Unity side is handled by `TCPHandler.cs`.  
 The Arduino echoes back what it receives on the serial port while the Unity script uses `Debug.Log`.
 
-This was tested using the ***2020.3.18f1*** version of Unity.
+This was tested using the ***2022.3.9f1*** version of Unity.
