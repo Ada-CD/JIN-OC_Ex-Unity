@@ -18,19 +18,21 @@ public class SerialHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _riverRigidbody2D = river.GetComponentInParent<Rigidbody2D>();
+        _riverSprite = river.GetComponentInParent<SpriteRenderer>();
+        
         _serial = new SerialPort(serialPort,baudrate);
         // Guarantee that the newline is common across environments.
         _serial.NewLine = "\n";
         // Once configured, the serial communication must be opened just like a file : the OS handles the communication.
         _serial.Open();
-        
-        _riverRigidbody2D = river.GetComponentInParent<Rigidbody2D>();
-        _riverSprite = river.GetComponentInParent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Return early if not open, prevent spamming errors for no reason.
+        if (!_serial.IsOpen) return;
         // Prevent blocking if no message is available as we are not doing anything else
         // Alternative solutions : set a timeout, read messages in another thread, coroutines, futures...
         if (_serial.BytesToRead <= 0) return;
@@ -54,11 +56,13 @@ public class SerialHandler : MonoBehaviour
 
     public void SetLed(bool newState)
     {
+        if (!_serial.IsOpen) return;
         _serial.WriteLine(newState ? "LED ON" : "LED OFF");
     }
     
     private void OnDestroy()
     {
+        if (!_serial.IsOpen) return;
         _serial.Close();
     }
 }
