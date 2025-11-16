@@ -1,10 +1,11 @@
 ﻿using System;
+// Will be used when adding TryParse with invariant culture
+using System.Globalization;
 using System.IO.Ports;
 using UnityEngine;
 
 public class SerialHandler : MonoBehaviour
 {
-    
     private SerialPort _serial;
 
     // Common default serial device on a Windows machine
@@ -58,6 +59,10 @@ public class SerialHandler : MonoBehaviour
                 _riverRigidbody2D.simulated = true;
                 _riverSprite.color = RiverColors.Wet;
                 break;
+            /*
+             * FIXME: Partie 1 Question 2.c - ajouter un `case` pour le nouvel en-tête
+             * correspondant au message pour changer la vitesse des compte à rebours.
+             */
             default:
                 Debug.Log($"Unknown message: {message}");
                 break;

@@ -62,20 +62,21 @@ public class LightController : MonoBehaviour
                 break;
         }
         
-        // Detect a change of state, as this is when we would send a message through the Serial.
+        // Detect a change of state : this is when we send a message to the Arduino and update lightState.
         bool newState = _leftState && _rightState;
-        Debug.Log($"lightState : {lightState}, newState : {newState}");
         if (!lightState && newState)
         {
             _spriteRenderer.sprite = onSprite;
             serialHandler.SetLed(true);
             lightState = true;
+            // There is only one "on" case : we are done.
             return;
         }
         if (lightState && !newState)
         {
             serialHandler.SetLed(false);
             lightState = false;
+            // There are multiple "off" cases : check below.
         }
         
         // Update the sprite according to which, if any, side is still powered on at this point.
