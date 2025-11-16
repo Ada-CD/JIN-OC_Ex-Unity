@@ -39,13 +39,16 @@ public class SerialHandler : MonoBehaviour
         // Alternative solutions : set a timeout, read messages in another thread, coroutines, futures...
         if (_serial.BytesToRead <= 0) return;
         
-        // Trim leading and trailing whitespaces, makes it easier to handle different line endings.
+        // Trim leading and trailing whitespaces makes it easier to handle different line endings.
         // Arduino uses \r\n by default with `.println()`.
         var message = _serial.ReadLine().Trim();
         
-        // Split the message on spaces, in case we want to pass a value as well.
+        // Split the message on spaces, so we can read the header and possible arguments.
         var messageParts = message.Split(' ');
-        switch (messageParts[0])
+        var header = messageParts[0];
+        var arguments = messageParts[1..];
+
+        switch (header)
         {
             case "dry":
                 _riverRigidbody2D.simulated = false;
