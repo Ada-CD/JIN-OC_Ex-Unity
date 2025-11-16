@@ -797,7 +797,7 @@ MonoBehaviour:
   serialPort: COM1
   baudrate: 115200
   river: {fileID: 1771820749}
-  lightController: {fileID: 0}
+  lightController: {fileID: 1588015339}
 --- !u!4 &1336036253
 Transform:
   m_ObjectHideFlags: 0
