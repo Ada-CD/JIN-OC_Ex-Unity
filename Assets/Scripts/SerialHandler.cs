@@ -8,8 +8,8 @@ public class SerialHandler : MonoBehaviour
     private SerialPort _serial;
 
     // Common default serial device on a Windows machine
-    [SerializeField] private string serialPort = "COM1";
-    [SerializeField] private int baudrate = 115200;
+    [SerializeField] private string serialPort;
+    [SerializeField] [Min(0)] private int baudrate;
     
     [SerializeField] private Component river;
     private Rigidbody2D _riverRigidbody2D;
