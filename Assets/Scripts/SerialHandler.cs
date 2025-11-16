@@ -51,13 +51,28 @@ public class SerialHandler : MonoBehaviour
 
         switch (header)
         {
-            case "dry":
-                _riverRigidbody2D.simulated = false;
-                _riverSprite.color = RiverColors.Dry ;
-                break;
-            case "wet":
-                _riverRigidbody2D.simulated = true;
-                _riverSprite.color = RiverColors.Wet;
+            case "river":
+                if (arguments.Length != 1)
+                {
+                    Debug.LogError($"Expected 1 argument for \"river\", got {arguments.Length}");
+                    return;
+                }
+
+                // Note that this is a switch on the *characters* 0 and 1, not the numbers !
+                switch (arguments[0])
+                {
+                    case "0":
+                        _riverRigidbody2D.simulated = false;
+                        _riverSprite.color = RiverColors.Dry ;
+                        break;
+                    case "1":
+                        _riverRigidbody2D.simulated = true;
+                        _riverSprite.color = RiverColors.Wet;
+                        break;
+                    default:
+                        Debug.LogError($"Unknown argument for \"river\" : {arguments[0]}");
+                        return;
+                }
                 break;
             /*
              * FIXME: Partie 1 Question 2.c - ajouter un `case` pour le nouvel en-tête

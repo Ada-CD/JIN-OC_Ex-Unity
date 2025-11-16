@@ -23,22 +23,28 @@ void setup() {
   // Wait for a serial connection
   while (!Serial.availableForWrite());
   // In case the Unity project isn't synced with the boolean.
-  Serial.println("wet");
+  Serial.println("river 1");
 }
 
 // Processes button input
 void loop() {
-  // Slows reaction down a bit
-  // but prevents _most_ button press misdetections
+  // Slows reaction down a bit but prevents _most_ button press misdetections.
   delay(200);
   
   if (button_flag) {
+    // Use print to add another part before the new line ; note the space !
+    Serial.print("river ");
+    int unity_river_arg;
     if (river_state) {
-      Serial.println("dry");
+      unity_river_arg = 0;
     } else {
-      Serial.println("wet");
+      unity_river_arg = 1;
     }
+    // Complete the message with the value and a new line.
+    Serial.println(unity_river_arg);
+
     river_state = !river_state;
+    // Clear the interrupt flag so we don't re-do the change.
     button_flag = false;
   }
 }
