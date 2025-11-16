@@ -20,12 +20,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if ( direction.magnitude == 0)
         {
-            _body.velocity = Vector2.SmoothDamp(_body.velocity, Vector2.zero, ref _dampVelocity, 0.05f);
+            _body.linearVelocity = Vector2.SmoothDamp(_body.linearVelocity, Vector2.zero, ref _dampVelocity, 0.05f);
         }
         else
         {
             _dampVelocity = Vector2.zero;
-            _body.velocity = Vector2.ClampMagnitude(_body.velocity + direction.normalized * speed, speed);
+            _body.linearVelocity = Vector2.ClampMagnitude(_body.linearVelocity + direction.normalized * speed, speed);
         }
     }
 }
