@@ -11,16 +11,16 @@ public delegate void TimerUpdate();
 // This should only be linked to the "Off" state in the Animator.
 public class TimerBehaviour : StateMachineBehaviour
 {
-    public event TimerUpdate PowerOn;
-    public event TimerUpdate PowerOff;
-    
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        PowerOff?.Invoke();
-    }
+	public event TimerUpdate PowerOn;
+	public event TimerUpdate PowerOff;
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        PowerOn?.Invoke();
-    }
+	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	{
+		PowerOff?.Invoke();
+	}
+
+	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+	{
+		PowerOn?.Invoke();
+	}
 }
