@@ -22,6 +22,8 @@ void setup() {
 
   // Wait for a serial connection
   while (!Serial.availableForWrite());
+  // Make sure the buffer is clean !
+  Serial.flush();
   // In case the Unity project isn't synced with the boolean.
   Serial.println("river 1");
 }
