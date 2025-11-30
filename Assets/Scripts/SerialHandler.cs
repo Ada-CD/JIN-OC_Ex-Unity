@@ -1,12 +1,10 @@
-﻿using System;
-// Will be used when adding TryParse with invariant culture
+﻿// Will be used when adding TryParse with invariant culture
 using System.Globalization;
-using System.IO.Ports;
 using UnityEngine;
 
 public class SerialHandler : MonoBehaviour
 {
-	private SerialPort _serial;
+	private SafeSerial _serial;
 
 	// Common default serial device on a Windows machine
 	[SerializeField] private string serialPort;
@@ -26,7 +24,7 @@ public class SerialHandler : MonoBehaviour
 		_riverRigidbody2D = river.GetComponentInParent<Rigidbody2D>();
 		_riverSprite = river.GetComponentInParent<SpriteRenderer>();
 
-		_serial = new SerialPort(serialPort, baudrate);
+		_serial = new SafeSerial(serialPort, baudrate);
 		// Guarantee that the newline is common across environments.
 		_serial.NewLine = "\n";
 		// Once configured, the serial communication must be opened.
@@ -42,12 +40,9 @@ public class SerialHandler : MonoBehaviour
 		if (Time.time < _lastOpenAttemptTime + OpenAttemptDelay) return false;
 		_lastOpenAttemptTime = Time.time;
 		
-		try {
-			// Allow updating the port name in the inspector while running the game.
-			_serial.PortName =  serialPort;
-			_serial.Open();
-		} catch (Exception e) {
-			Debug.LogWarning($"Could not open serial {serialPort} : {e.Message}");
+		// Allow updating the port name in the inspector while running the game.
+		_serial.PortName =  serialPort;
+		if (!_serial.Open()) {
 			return false;
 		}
 
@@ -55,31 +50,18 @@ public class SerialHandler : MonoBehaviour
 		return true;
 	}
 
-	private void CloseSerial()
-	{
-		_serial.Close();
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
 		// If the port is not open and could not be opened, we have nothing to do : return early.
 		if (!_serial.IsOpen && !OpenSerial()) return;
+
+		// Prevent blocking if no message is available as we are not doing anything else
+		// Alternative solutions : set a timeout, read messages in another thread, coroutines, futures...
+		if (_serial.BytesToRead <= 0) return;
 		
-		string message;
-		// We might not know that the serial port has been disconnected :
-		// catch any errors and properly close it so we can recover.
-		try {
-			// Prevent blocking if no message is available as we are not doing anything else
-			// Alternative solutions : set a timeout, read messages in another thread, coroutines, futures...
-			if (_serial.BytesToRead <= 0) return;
-			
-			message = _serial.ReadLine();
-		} catch (Exception e) {
-			Debug.LogError($"Error reading serial : {e.Message}\nResetting connection.");
-			CloseSerial();
-			return;
-		}
+		string message = _serial.ReadLine();
+		if (message.Length == 0) return;
 		
 		// Trim leading and trailing whitespaces makes it easier to handle different line endings.
 		// Arduino uses \r\n by default with `.println()`.
@@ -124,18 +106,11 @@ public class SerialHandler : MonoBehaviour
 
 	public void SetLed(bool newState)
 	{
-		if (!_serial.IsOpen) return;
-		try {
-			_serial.WriteLine(newState ? "LED ON" : "LED OFF");
-		} catch (Exception e) {
-			Debug.LogError($"Error writing to serial : {e.Message}\nResetting connection.");
-			CloseSerial();
-		}
+		_serial.WriteLine(newState ? "LED ON" : "LED OFF");
 	}
 
 	private void OnDestroy()
 	{
-		if (!_serial.IsOpen) return;
 		_serial.Close();
 	}
 }
