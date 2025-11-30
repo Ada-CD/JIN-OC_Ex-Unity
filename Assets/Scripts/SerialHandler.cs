@@ -18,7 +18,6 @@ public class SerialHandler : MonoBehaviour
 
 	[SerializeField] private LightController lightController;
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		_riverRigidbody2D = river.GetComponentInParent<Rigidbody2D>();
@@ -50,7 +49,6 @@ public class SerialHandler : MonoBehaviour
 		return true;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		// If the port is not open and could not be opened, we have nothing to do : return early.

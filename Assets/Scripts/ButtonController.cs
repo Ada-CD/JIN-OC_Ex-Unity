@@ -12,7 +12,6 @@ public class ButtonController : MonoBehaviour
 	private Animator _timer;
 	private SpriteShapeRenderer _wire;
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		_timer = GetComponentInChildren<Animator>();

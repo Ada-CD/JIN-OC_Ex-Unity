@@ -31,7 +31,6 @@ public class LightController : MonoBehaviour
 		Right
 	};
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		leftTimer.GetBehaviour<TimerBehaviour>().PowerOn += () => { LightStateChecker(Side.Left, true); };
@@ -41,7 +40,6 @@ public class LightController : MonoBehaviour
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
-	// Update is called once per frame
 	public void UpdateTimerMultiplier(float timerMultiplier)
 	{
 		leftTimer.SetFloat(ParameterTimerSpeed, timerMultiplier);
